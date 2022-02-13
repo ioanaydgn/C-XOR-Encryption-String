@@ -1,4 +1,3 @@
-Xor.h:
 #pragma once
 #include <string>
 #include <array>
@@ -15,11 +14,11 @@ namespace xorstr_impl {
 
     constexpr auto time = __TIME__;
     constexpr auto seed = static_cast<int>(time[7]) +
-        static_cast<int>(time[6]) * 10 +
-        static_cast<int>(time[4]) * 60 +
-        static_cast<int>(time[3]) * 600 +
-        static_cast<int>(time[1]) * 3600 +
-        static_cast<int>(time[0]) * 36000;
+                          static_cast<int>(time[6]) * 10 +
+                          static_cast<int>(time[4]) * 60 +
+                          static_cast<int>(time[3]) * 600 +
+                          static_cast<int>(time[1]) * 3600 +
+                          static_cast<int>(time[0]) * 36000;
 
     template <int N>
     struct random_generator {
@@ -70,7 +69,7 @@ namespace xorstr_impl {
     public:
         template <size_t... Is>
         constexpr XORSTR_INLINE string(const char* str, std::index_sequence<Is...>) :
-            key_(random_char<K>::value), encrypted_{ { enc(str[Is])... } } {}
+                key_(random_char<K>::value), encrypted_{ { enc(str[Is])... } } {}
 
         XORSTR_INLINE decltype(auto) decrypt() {
             for (size_t i = 0; i < N; ++i) {
@@ -87,3 +86,4 @@ namespace xorstr_impl {
 
 #define XorStr(s) (xorstr_impl::string<sizeof(s) - 1, \
   __COUNTER__>(s, std::make_index_sequence<sizeof(s) - 1>()).decrypt())
+
